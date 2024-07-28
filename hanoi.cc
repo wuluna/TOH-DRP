@@ -27,7 +27,11 @@ void print_stack(stack<int> s) {
 
 // Iterative method
 void hanoi_it(int n, stack<int> source, stack<int> target, stack<int> spare) {
-
+    while (target.size() != n && spare.size() != n) {
+        move(source, target);
+        move(source, spare);
+        move(target, spare);
+    }
 }
 
 // Recursive method
