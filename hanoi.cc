@@ -23,14 +23,24 @@ void print_stack(stack<int> s) {
         cout << scpy.top() << ", ";
         scpy.pop();
     }
+    cout << endl;
 }
 
 // Iterative method
-void hanoi_it(int n, stack<int> source, stack<int> target, stack<int> spare) {
+void hanoi_it(int n, stack<int> source, stack<int> spare, stack<int> target) {
+    print_stack(source);
+    print_stack(spare);
+    print_stack(target);
+    cout << endl;
     while (target.size() != n && spare.size() != n) {
         move(source, target);
         move(source, spare);
         move(target, spare);
+
+        print_stack(source);
+        print_stack(spare);
+        print_stack(target);
+        cout << endl;
     }
 }
 
@@ -44,4 +54,10 @@ void hanoi_rec(int n, stack<int> source, stack<int> target, stack<int> spare) {
         move(source, target);
         hanoi_rec(n - 1, spare, target, source);
     }
+}
+
+int main(int argc, char *argv[]) {
+    stack<int> source, spare, target;
+    int n = stoi(argv[1]);
+    hanoi_it(n, source, spare, target);
 }
