@@ -5,6 +5,7 @@ using namespace std;
 
 // moves the top disk from one stack to another
 void move(stack<int> &a, stack<int> &b) {
+    if (a.empty() && b.empty()) return;
     if (a.empty() || (!b.empty() && b.top() < a.top())) {
         int top = b.top();
         b.pop();
@@ -29,21 +30,16 @@ void print_stack(stack<int> &s) {
 // Iterative method
 void hanoi_it(int n, stack<int> &source, stack<int> &spare, stack<int> &target) {
     while (target.size() != n && spare.size() != n) {
-        move(source, target);
         move(source, spare);
-        move(target, spare);
-
-        cout << "source: "; print_stack(source);
-        cout << "spare: "; print_stack(spare);
-        cout << "target: "; print_stack(target);
-        cout << endl;
+        move(source, target);
+        move(spare, target);
     }
 }
 
 // Recursive method
 void hanoi_rec(int n, stack<int> &source, stack<int> &target, stack<int> &spare) {
-    if (n == 1) {
-        move(source, target);
+    if (n == 0) {
+        return;
     }
     else {
         hanoi_rec(n - 1, source, spare, target);
@@ -52,16 +48,12 @@ void hanoi_rec(int n, stack<int> &source, stack<int> &target, stack<int> &spare)
     }
 }
 
-int main(int argc, char *argv[]) {
+int main() {
     stack<int> source, spare, target;
-    int n = stoi(argv[1]);
+    int n;
+    cin >> n;
     for (int i = n; i > 0; i-- ) {
         source.push(i);
     }
-
-    cout << "source: "; print_stack(source);
-    cout << "spare: "; print_stack(spare);
-    cout << "target: "; print_stack(target);
-    cout << endl;
-    hanoi_it(n, source, spare, target);
+    hanoi_rec(n, source, spare, target);
 }
