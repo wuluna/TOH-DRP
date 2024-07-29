@@ -36,7 +36,7 @@ void hanoi_it(int n, stack<int> &source, stack<int> &spare, stack<int> &target) 
     }
 }
 
-
+// Recursive method
 void hanoi_rec(int n, stack<int> &source, stack<int> &target, stack<int> &spare) {
     if (n == 0) {
         return;
